@@ -1,12 +1,28 @@
-<jsp:useBean id="shopDataBeanId" class="barra.ShopData" scope="session" />
-<jsp:setProperty name="shopDataBeanId" property="*" />
 
+<html>
+<head>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css">
 
+</head>
+<body>
 
-hi! <%= shopDataBeanId.getUsername() %> <br>
-your email <%= shopDataBeanId.getEmail() %> <br>
-and your age is <%= shopDataBeanId.getAge() %> <br>
+<div class="container">
+<div class="page-header">
+            Order summary:
+        </div>
+    <div class="row">
+<div class="col-xm-2">
+
+<%= request.getAttribute("msg") %>
+
 </p>
 <p>
-<a href="/simple-webapp/shop.jsp">back to the roots</a>
+<a href="/simple-webapp/shop">back to the shop</a>
 </p>
+</div>
+</div>
+
+</div>
+
+</body>
+</html>
