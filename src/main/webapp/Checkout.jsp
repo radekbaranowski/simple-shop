@@ -17,7 +17,7 @@
 
 </p>
 <p>
-<a href="/simple-webapp/shop">back to the shop</a>
+<a href="/simple-shop/shop">back to the shop</a>
 </p>
 </div>
 </div>

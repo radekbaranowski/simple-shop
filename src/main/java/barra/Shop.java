@@ -10,9 +10,6 @@ public class Shop extends HttpServlet {
     private static int qtyA;
     private static int qtyB;
 
-    private int orderQtyA;
-    private int orderQtyB;
-
 
     public static int getQtyA() {
         return qtyA;
@@ -69,14 +66,14 @@ public class Shop extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request,
-                      HttpServletResponse response)
+                       HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("processing POST");
         String statusMsg = "";
-System.out.println("stock A before " + Shop.qtyA + " | stock B before " + Shop.qtyB );
-       int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
+        System.out.println("stock A before " + Shop.qtyA + " | stock B before " + Shop.qtyB );
+        int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
         int orderQB = Integer.valueOf(request.getParameter("orderQtyB"));
-       statusMsg = processOrder(orderQA,orderQB);
+        statusMsg = processOrder(orderQA,orderQB);
         System.out.println("stock A after " + Shop.qtyA + " | stock B after " + Shop.qtyB );
         request.setAttribute("msg",statusMsg);
         request.getRequestDispatcher("/Checkout.jsp").forward(request,response);
