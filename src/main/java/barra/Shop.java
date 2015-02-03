@@ -7,6 +7,7 @@ import java.lang.String;
 
 public class Shop extends HttpServlet {
 
+    // static fields to hold current stock
     private static int qtyA;
     private static int qtyB;
 
@@ -27,6 +28,7 @@ public class Shop extends HttpServlet {
         Shop.qtyA = qtyA;
     }
 
+    // initiate the shop
     public Shop() {
         super();
         qtyA=20;
@@ -34,8 +36,14 @@ public class Shop extends HttpServlet {
 
     }
 
+    /* method to process order sent from the frontend*/
     private String processOrder(int orderQA, int orderQB){
+        // temp order processing status result
         String statusMsg = "";
+
+        /*if ordered amount of A or B is less or equal,
+        confirm order, otherwise let user know ordered amount exceeds stock */
+
         if (orderQA <= Shop.qtyA){
             Shop.qtyA-=orderQA;
             statusMsg += "You have bought "+ orderQA + " of A<br>";
@@ -56,10 +64,10 @@ public class Shop extends HttpServlet {
 
 
     }
+
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
             throws ServletException, IOException {
-
 
         System.out.println("processing GET");
         request.getRequestDispatcher("/shop.jsp").forward(request,response);
@@ -68,15 +76,20 @@ public class Shop extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
+        // some logging
         System.out.println("processing POST");
-        String statusMsg = "";
         System.out.println("stock A before " + Shop.qtyA + " | stock B before " + Shop.qtyB );
+        // grab form values
         int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
         int orderQB = Integer.valueOf(request.getParameter("orderQtyB"));
+        // process the order
         statusMsg = processOrder(orderQA,orderQB);
+        // logging
         System.out.println("stock A after " + Shop.qtyA + " | stock B after " + Shop.qtyB );
+        // prepare to send the outcome of order processing
         request.setAttribute("msg",statusMsg);
-        request.getRequestDispatcher("/Checkout.jsp").forward(request,response);
+        // redirect to checkout page
+        request.getRequestDispatcher("/checkout.jsp").forward(request,response);
     }
 
 }

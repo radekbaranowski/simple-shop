@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <jsp:useBean id="shopDataBeanId" class="barra.Shop" scope="application" />
 <jsp:setProperty name="shopDataBeanId" property="*" />
 <% Integer stockA=shopDataBeanId.getQtyA();
