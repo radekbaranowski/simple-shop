@@ -5,15 +5,24 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.lang.String;
 import java.util.ArrayList;
-import org.apache.commons.lang3.StringUtils;
 
 import barra.ShopItem;
 
-public class Shop extends HttpServlet {
+public class ShopAlt extends HttpServlet {
 
     // static fields to hold current stock
     private static int qtyA;
     private static int qtyB;
+
+    public static ArrayList<ShopItem> getItems() {
+        return items;
+    }
+
+    public static void setItems(ArrayList<ShopItem> items) {
+        ShopAlt.items = items;
+    }
+
+    private static ArrayList<ShopItem> items;
 
 
     public static int getQtyA() {
@@ -25,18 +34,24 @@ public class Shop extends HttpServlet {
     }
 
     public static void setQtyB(int qtyB) {
-        Shop.qtyB = qtyB;
+        ShopAlt.qtyB = qtyB;
     }
 
     public static void setQtyA(int qtyA) {
-        Shop.qtyA = qtyA;
+        ShopAlt.qtyA = qtyA;
     }
 
     // initiate the shop
-    public Shop() {
+    public ShopAlt() {
         super();
         qtyA=20;
         qtyB=10;
+        ShopItem itemA = new ShopItem("Goblin",20);
+        ShopItem itemB = new ShopItem("Imp",10);
+        items = new ArrayList<ShopItem>();
+        items.add(itemA);
+        items.add(itemB);
+
     }
 
     /* method to process order sent from the frontend*/
@@ -49,7 +64,7 @@ public class Shop extends HttpServlet {
 
         if (orderQA <= this.qtyA){
             this.qtyA-=orderQA;
-            statusMsg += "You have bought "+ orderQA + " Goblins<br>";
+            statusMsg += "You have bought "+ orderQA + " of A<br>";
         }
         else {
             statusMsg+="Order of A exceeds current stock.<br>";
@@ -57,7 +72,7 @@ public class Shop extends HttpServlet {
 
         if (orderQB <= this.qtyB){
             this.qtyB-=orderQB;
-            statusMsg += "You have bought "+ orderQB + " Imps<br>";
+            statusMsg += "You have bought "+ orderQB + " of B<br>";
         }
         else {
             statusMsg+="Order of B exceeds current stock.<br> ";
@@ -74,32 +89,22 @@ public class Shop extends HttpServlet {
 
         System.out.println("processing GET");
 
+        request.setAttribute("qtyA",qtyA);
+        request.setAttribute("qtyB",qtyB);
         request.getRequestDispatcher("/shop.jsp").forward(request,response);
     }
 
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response)
             throws ServletException, IOException {
-
-        // status message to return to customer
-        String statusMsg;
-
         // some logging
         System.out.println("processing POST");
         System.out.println("stock A before " + this.qtyA + " | stock B before " + this.qtyB );
-
-        // grab form values, validation is made on client side however sending empty POST request
-        // from outside of the browser would cause nasty exceptions
-        if (StringUtils.isNumeric(request.getParameter("orderQtyA")) && StringUtils.isNumeric(request.getParameter("orderQtyB"))) {
-            // grab order quantity values
-            int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
-            int orderQB = Integer.valueOf(request.getParameter("orderQtyB"));
-            // process the order
-            statusMsg = processOrder(orderQA, orderQB);
-        } else {
-            statusMsg = "Invalid data supplied for either of the products";
-            System.out.println(statusMsg);
-        }
+        // grab form values
+        int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
+        int orderQB = Integer.valueOf(request.getParameter("orderQtyB"));
+        // process the order
+        String statusMsg = processOrder(orderQA, orderQB);
         // logging
         System.out.println("stock A after " + this.qtyA + " | stock B after " + this.qtyB );
         // prepare to send the outcome of order processing
