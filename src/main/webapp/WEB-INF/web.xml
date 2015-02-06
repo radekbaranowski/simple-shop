@@ -6,7 +6,7 @@
   <display-name>Archetype Created Web Application</display-name>
       <servlet>
         <servlet-name>shop</servlet-name>
-        <servlet-class>barra.Shop</servlet-class>
+        <servlet-class>barra.ShopServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

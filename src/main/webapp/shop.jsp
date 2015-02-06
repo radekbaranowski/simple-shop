@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-
-<jsp:useBean id="shopDataBeanId" class="barra.Shop" scope="application" />
+<jsp:useBean id="shopDataBeanId" class="barra.ShopServlet" scope="application" />
 <jsp:setProperty name="shopDataBeanId" property="*" />
-<% Integer stockA=shopDataBeanId.getQtyA();
-   Integer stockB=shopDataBeanId.getQtyB(); %>
-
+<% Integer stockA=shopDataBeanId.getShop().getStockA();
+   Integer stockB=shopDataBeanId.getShop().getStockB(); %>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:html5="http://www.w3.org/1999/xhtml">
 <head>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css">
@@ -35,8 +33,8 @@
                           Your shopping
                        </div>
                 <form method="post" action="shop">
-                Order <input type="number" size="2" min="0" required="true" max=  <%= stockA %> name="orderQtyA"> Goblins<br>
-                Order <input type="number" size="2" min="0" required="true" max=  <%= stockB %> name="orderQtyB"> Imps<br>
+                Order <input type="number" size="2" min="0" required="true" max=<%= stockA %> name="orderQtyA"> Goblins<br>
+                Order <input type="number" size="2" min="0" required="true" max=<%= stockB %> name="orderQtyB"> Imps<br>
                 <br><input type="submit" class="btn btn-default" value="Place your order">
                 <hr>
                 </form>
@@ -45,6 +43,8 @@
 </div>
 </div>
 </div>
+
+
 </html5:section>
 </body>
 </html>
