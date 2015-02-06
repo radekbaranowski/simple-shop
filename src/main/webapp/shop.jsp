@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:html5="http://www.w3.org/1999/xhtml">
 <head>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/journal/bootstrap.min.css">
-
+<title>[simple shop] mock-up</title>
 </head>
 <body>
  <html5:section>

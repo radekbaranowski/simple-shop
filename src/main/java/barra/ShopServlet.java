@@ -11,7 +11,7 @@ import barra.*;
 
 public class ShopServlet extends HttpServlet {
 
-
+    //shop object to hold stock data
     private static Shop shop;
 
     public static Shop getShop() {
@@ -30,8 +30,9 @@ public class ShopServlet extends HttpServlet {
                       HttpServletResponse response)
             throws ServletException, IOException {
 
+        // log request arrival
         System.out.println("processing GET");
-
+        //redirect to JSP page
         request.getRequestDispatcher("/shop.jsp").forward(request,response);
     }
 
@@ -39,29 +40,24 @@ public class ShopServlet extends HttpServlet {
                        HttpServletResponse response)
             throws ServletException, IOException {
 
-        // status message to return to customer
+        // declare status message to return to customer
         String statusMsg;
 
-        // some logging
+        // diagnostic logging
         System.out.println("processing POST");
         System.out.println("stock A before " + shop.getStockA() + " | stock B before " + shop.getStockB());
 
-        // grab form values, validation is made on client side however sending empty POST request
+        // validation is made on client side however sending empty POST request
         // from outside of the browser would cause nasty exceptions
         if (StringUtils.isNumeric(request.getParameter("orderQtyA")) && StringUtils.isNumeric(request.getParameter("orderQtyB"))) {
-            // grab order quantity values
-            int orderQA = Integer.valueOf(request.getParameter("orderQtyA"));
-            int orderQB = Integer.valueOf(request.getParameter("orderQtyB"));
-
-            // process the order
-            statusMsg = shop.processOrder(orderQA, orderQB);
-
+              // process the order if both inputs are valid numerics
+            statusMsg = shop.processOrder(Integer.valueOf(request.getParameter("orderQtyA")), Integer.valueOf(request.getParameter("orderQtyB")));
         } else {
             statusMsg = "Invalid data supplied for either of the products";
             System.out.println(statusMsg);
         }
 
-        // logging
+        // diagnostic logging
         System.out.println("stock A after " +  shop.getStockA() + " | stock B after " + shop.getStockB() );
         // prepare to send the outcome of order processing
         request.setAttribute("msg",statusMsg);
