@@ -52,7 +52,7 @@ public class Shop {
             statusMsg += "You have bought "+ orderQB + " Imps<br>";
         }
         else {
-            statusMsg+="Order of B exceeds current stock.<br> ";
+            statusMsg+="Order of B exceeds current stock.<br>";
         }
 
         return statusMsg;

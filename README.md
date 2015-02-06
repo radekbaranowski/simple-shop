@@ -4,7 +4,7 @@ Technology choice justification
 
 - frontend
 
-I took Tomek's advice to use things I already know and feel confident with and I assumed it's best to pick simplest solution which I feel comfortable in, hence simple JSP page
+I took Tomek's advice to use things I already know and feel confident with and I assumed it's best to pick simplest solution which I feel comfortable in, hence simple JSP (Model 2) page
 with form validation based on values gotten from bean.
 
 - backend

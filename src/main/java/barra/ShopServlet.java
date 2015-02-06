@@ -52,6 +52,7 @@ public class ShopServlet extends HttpServlet {
         if (StringUtils.isNumeric(request.getParameter("orderQtyA")) && StringUtils.isNumeric(request.getParameter("orderQtyB"))) {
               // process the order if both inputs are valid numerics
             statusMsg = shop.processOrder(Integer.valueOf(request.getParameter("orderQtyA")), Integer.valueOf(request.getParameter("orderQtyB")));
+            System.out.println(statusMsg);
         } else {
             statusMsg = "Invalid data supplied for either of the products";
             System.out.println(statusMsg);
